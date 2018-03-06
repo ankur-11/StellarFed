@@ -1,0 +1,35 @@
+<div class="side-image">
+  <div class="images-wrapper"></div>
+  <div class="side-image-content">
+    <h4>Edit Stellar Address</h4>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= devise_error_messages! %>
+
+      <%= f.label :email, "Your email address for the Stellar Address" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+
+      <%= f.label :password, "Password <i>(leave blank if you don't want to change it)</i>".html_safe %>        
+      <%= f.password_field :password, autocomplete: "off" %>
+
+      <%= f.label :account_id %>
+      <%= f.text_field :account_id, autocomplete: "off" %>
+
+      <%= f.label :current_password, "Current Password <i>(we need your current password to confirm your changes)</i>".html_safe %>
+      <%= f.password_field :current_password, autocomplete: "off" %>
+
+      <%= f.submit "Update" %>
+    <% end %>
+
+    <p></p>
+    <p>
+      <h4>Cancel my account</h4>
+      <div>
+        <%= button_to "Delete my Stellar Address", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "danger" %>
+      </div>
+    </p>
+  </div>
+</div>

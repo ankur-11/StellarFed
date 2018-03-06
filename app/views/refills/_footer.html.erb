@@ -1,0 +1,21 @@
+<footer class="footer" role="contentinfo">
+  <div class="footer-logo">
+    <p>StellarFed</p>
+    <%= image_tag "logo-star.svg", alt: "Logo Image", class: "logo" %>
+    <p>Stellar Federation Service</p>
+  </div>
+  <div class="footer-links">
+    <ul>
+      <li><h3>Donate</h3></li>
+      <li>
+        <% cache donate_account do %>
+          <%= link_to donate_account.stellar_address, user_path(donate_account) %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <p>Made with ❤ in New Jersey</p>
+</footer>

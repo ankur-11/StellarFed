@@ -1,0 +1,18 @@
+.bullets {
+  $large-screen: 53.75em !default;
+  margin: 2em;
+  @include media ($large-screen) {
+    margin: 5em 5em 8em 5em;
+  }
+}
+
+.combo-input {
+  position: relative;
+  .postfix {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    background: #ddd;
+    padding: 5px 20px;
+  }
+}

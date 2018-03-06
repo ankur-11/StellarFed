@@ -1,0 +1,56 @@
+<header class="navigation" role="banner">
+  <div class="navigation-wrapper">
+    <a href="/" class="logo">
+      <%= image_tag "logo-star.svg", alt: "Logo Image", class: "logo" %>
+      StellarFed
+    </a>
+    <a href="javascript:void(0)" class="navigation-menu-button" id="js-mobile-menu">MENU</a>
+    <nav role="navigation">
+      <ul id="js-navigation-menu" class="navigation-menu show">
+        <% if current_user.present? %>
+          <li id="js-centered-more" class="nav-link more">
+            <a href="javascript:void(0)">Profile</a>
+            <ul class="submenu">
+              <li>
+                <%= link_to('Settings', edit_user_registration_path) %>
+              </li>
+              <li>
+                <%= link_to('Sign Out', destroy_user_session_path, method: :delete) %>
+              </li>
+            </ul>
+          </li>
+        <% else %>
+          <li id="js-centered-more" class="nav-link more">
+            <a href="javascript:void(0)">Sign In</a>
+            <ul class="submenu with-form">
+              <li>
+                <%= form_for(User.new, as: resource_name, url: session_path(resource_name)) do |f| %>
+                  <%= f.label :email %>
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+                  <%= f.label :password %>
+                  <%= f.password_field :password, autocomplete: "off" %>
+                  <% if devise_mapping.rememberable? %>
+                    <label>
+                      <%= f.check_box :remember_me %> Remember me
+                    </label>
+                  <% end %>
+                  <%= f.submit "Log in" %>
+                <% end %>
+              </li>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+    </nav>
+    <div class="navigation-tools">
+      <div class="search-bar">
+        <form role="search" action="/search" method="GET">
+          <input type="search" name="q" placeholder="Search by Stellar Address or Account ID" />
+          <button type="submit">
+            <%= image_tag "search.svg" %>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</header>

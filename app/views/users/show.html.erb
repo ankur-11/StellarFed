@@ -1,0 +1,20 @@
+<% if @user.present? %>
+  <% content_for :title, "#{@user.email} - Stellar Federation Address" %>
+<% end %>
+<div class="side-image">
+  <div class="images-wrapper">
+    <% if @user.present? %>
+      <%= image_tag @user.account_id_qr_code, alt: "Account ID", class: "qr-code" %>
+    <% end %>
+  </div>
+  <div class="side-image-content">
+    <% if @user.present? %>
+      <h4>Stellar Address</h4>
+      <h1><%= @user.stellar_address %></h1>
+      <p><%= @user.account_id %></p>
+    <% else %>
+      <h1>Stellar Address Not Found 🙁</h1>
+      <p>Check if Account ID or Stellar Address is correct.</p>
+    <% end %>
+  </div>
+</div>

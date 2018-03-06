@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+    <title><%= content_for?(:title) ? yield(:title) : "Stellar Federation Service" %></title>
+    <meta name="description" content="Stellar Federation Service" />
+    <meta property="og:title" content="Stellar Federation Service" />
+    <meta property="og:url" content="https://stellarfed.org" />
+    <meta property="og:description" content="Stellar Federation Service" />
+    <meta property="og:type" content="website" />
+
+    <%= stylesheet_link_tag "application" %>
+    <%= csrf_meta_tags %>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-113897981-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-113897981-1');
+    </script>
+  </head>
+
+  <body>
+    <%= render partial: "refills/navigation" %>
+    <%= render partial: "refills/flashes" %>
+    <main>
+      <%= yield %>
+    </main>
+    <%= render partial: "refills/footer" %>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <%= javascript_include_tag "application" %>
+  </body>
+</html>
