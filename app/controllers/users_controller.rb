@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def search
     @user = User.where("email = ? OR account_id = ?", @search_query, @search_query).first
     if @user.present?
-      redirect_to "/#{@user.email}" and return
+      redirect_to user_path(@user) and return
     end
     render :show and return
   end
