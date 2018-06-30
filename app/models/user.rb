@@ -29,8 +29,6 @@ class User < ApplicationRecord
     self.cache
   end
 
-  private
-
   def uncache
     StellarFederation::Application::CACHE_CLIENT.srem(self.account_id, self.email) rescue nil
   end
