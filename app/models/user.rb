@@ -11,6 +11,8 @@ class User < ApplicationRecord
   self.primary_key = :email
   validates :account_id, presence: true, allow_blank: false, length: { is: 56 }
   has_one_attached :avatar
+  
+  after_destroy { |user| user.uncache }
 
   def stellar_address
     "#{self.email}*#{DOMAIN}"
@@ -25,6 +27,12 @@ class User < ApplicationRecord
   def after_confirmation
     super
     self.cache
+  end
+
+  private
+
+  def uncache
+    StellarFederation::Application::CACHE_CLIENT.srem(self.account_id, self.email) rescue nil
   end
 
   def cache
