@@ -1,6 +1,7 @@
 require_relative 'boot'
 
 require 'rails/all'
+require 'redis'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -10,6 +11,8 @@ DOMAIN = "stellarfed.org"
 
 module StellarFederation
   class Application < Rails::Application
+    CACHE_CLIENT = Redis.new(url: ENV['REDIS_URL'])
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 

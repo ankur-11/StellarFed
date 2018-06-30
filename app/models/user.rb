@@ -21,4 +21,13 @@ class User < ApplicationRecord
     base64_output = Base64.encode64(barcode.to_png({ xdim: 5 }))
     "data:image/png;base64,#{base64_output}"
   end
+
+  def after_confirmation
+    super
+    self.cache
+  end
+
+  def cache
+    StellarFederation::Application::CACHE_CLIENT.sadd(self.account_id, self.email) rescue nil
+  end
 end
