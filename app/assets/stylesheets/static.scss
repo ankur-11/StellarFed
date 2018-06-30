@@ -9,6 +9,7 @@
 .combo-input {
   position: relative;
   .postfix {
+    font-weight: bold;
     position: absolute;
     bottom: 1px;
     right: 1px;
@@ -24,4 +25,11 @@
   input, label {
     line-height: 14px;
   }
+}
+
+.asterisk {
+  position: relative;
+  top: 13px;
+  font-size: 33px;
+  line-height: 0;
 }
