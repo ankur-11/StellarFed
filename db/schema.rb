@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_02_18_165135) do
+ActiveRecord::Schema.define(version: 2018_06_30_041002) do
 
 # Could not dump table "active_storage_attachments" because of following StandardError
 #   Unknown type 'uuid' for column 'record_id'
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2018_02_18_165135) do
     t.string "account_id", limit: 56, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "receive_email_notifications", default: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

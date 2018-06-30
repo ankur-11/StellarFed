@@ -12,7 +12,8 @@ class User < ApplicationRecord
   validates :account_id, presence: true, allow_blank: false, length: { is: 56 }
   has_one_attached :avatar
   
-  after_destroy { |user| user.uncache }
+  after_update_commit :update_cache
+  after_destroy :uncache
 
   def stellar_address
     "#{self.email}*#{DOMAIN}"
@@ -26,14 +27,22 @@ class User < ApplicationRecord
 
   def after_confirmation
     super
-    self.cache
+    cache
   end
 
   def uncache
-    StellarFederation::Application::CACHE_CLIENT.srem(self.account_id, self.email) rescue nil
+    StellarFederation::Application::CACHE_CLIENT.srem(account_id, email) rescue nil
   end
 
   def cache
-    StellarFederation::Application::CACHE_CLIENT.sadd(self.account_id, self.email) rescue nil
+    if receive_email_notifications
+      StellarFederation::Application::CACHE_CLIENT.sadd(account_id, email) rescue nil
+    end
+  end
+
+  private
+
+  def update_cache
+    receive_email_notifications ? cache : uncache
   end
 end

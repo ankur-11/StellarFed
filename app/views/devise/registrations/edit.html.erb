@@ -18,6 +18,10 @@
       <%= f.label :account_id %>
       <%= f.text_field :account_id, autocomplete: "off" %>
 
+      <div class="row collapse email-notifications">
+        <%= f.check_box :receive_email_notifications %> <%= f.label :receive_email_notifications, "Receive email notifications for incoming payments to this Stellar account" %>
+      </div>
+
       <%= f.label :current_password, "Current Password <i>(we need your current password to confirm your changes)</i>".html_safe %>
       <%= f.password_field :current_password, autocomplete: "off" %>
 
