@@ -1,3 +1,3 @@
 Rails.configuration.after_initialize do
-  User.where(receive_email_notifications: true).each(&:cache)
+  User.where(receive_email_notifications: true).each(&:cache) rescue nil
 end
