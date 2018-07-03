@@ -46,27 +46,19 @@ class UsersController < ApplicationController
   private
 
   def set_search_query_and_type
-    set_search_query
-    set_search_type
+    return unless set_search_query
+    return unless set_search_type
 
     # Extract memo if present by looking for + after the before but before *
     # Example: john@email.com+memo*stellarfed.org
     if @search_type == 'name'
       matches = @search_query.scan(/^(.+@[^\+]+)\+?(.+)?/)
       if matches.blank?
-        render status: :bad_request, json: { detail: "missing query" }.to_json and return
+        render status: :bad_request, json: { detail: "bad query" }.to_json and return
       end
 
       @search_query, @memo = matches.first
     end
-  end
-
-  def set_search_type
-    if params[:type].blank?
-      render status: :bad_request, json: { detail: "missing type" }.to_json and return
-    end
-
-    @search_type ||= params[:type]
   end
 
   def set_search_query
@@ -75,5 +67,13 @@ class UsersController < ApplicationController
     end
     
     @search_query ||= params[:q].gsub(/\*#{Regexp.quote(DOMAIN)}$/, '')
+  end
+
+  def set_search_type
+    if params[:type].blank?
+      render status: :bad_request, json: { detail: "missing type" }.to_json and return
+    end
+
+    @search_type ||= params[:type]
   end
 end
