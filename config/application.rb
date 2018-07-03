@@ -7,11 +7,11 @@ require 'redis'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-DOMAIN = "stellarfed.org"
-
 module StellarFederation
   class Application < Rails::Application
     CACHE_CLIENT = Redis.new(url: ENV['REDIS_URL'])
+    DOMAIN = 'stellarfed.org'
+    DONATION_ACCOUNT = 'ankurpatel@me.com'
 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
@@ -20,9 +20,9 @@ module StellarFederation
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.before_initialize do
-      config.domain = DOMAIN
+      config.domain = StellarFederation::Application::DOMAIN
     end
 
-    config.action_mailer.default_url_options = { host: DOMAIN }
+    config.action_mailer.default_url_options = { host: StellarFederation::Application::DOMAIN }
   end
 end

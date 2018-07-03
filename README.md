@@ -16,7 +16,7 @@ Follow these steps to get started
 
 ## Questions
 
-Contact [Ankur](mailto:ankur@encoredevlabs.com)
+Contact [Ankur](mailto:ankur@stellarfed.org)
 
 ## Screenshots
 

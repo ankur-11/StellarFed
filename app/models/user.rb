@@ -19,7 +19,7 @@ class User < ApplicationRecord
   after_destroy :uncache
 
   def stellar_address
-    "#{self.email}*#{DOMAIN}"
+    "#{self.email}<span class='asterisk'>*</span>#{StellarFederation::Application::DOMAIN}".html_safe
   end
 
   def account_id_qr_code

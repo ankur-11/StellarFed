@@ -66,7 +66,7 @@ class UsersController < ApplicationController
       render status: :bad_request, json: { detail: "missing query" }.to_json and return
     end
     
-    @search_query ||= params[:q].gsub(/\*#{Regexp.quote(DOMAIN)}$/, '')
+    @search_query ||= params[:q].gsub(/\*#{Regexp.quote(StellarFederation::Application::DOMAIN)}$/, '')
   end
 
   def set_search_type
