@@ -18,8 +18,12 @@ class User < ApplicationRecord
   after_update_commit :update_cache
   after_destroy :uncache
 
-  def stellar_address
-    "#{self.email}<span class='asterisk'>*</span>#{StellarFederation::Application::DOMAIN}".html_safe
+  def stellar_address(opts = {})
+    if opts[:html]
+      "#{self.email}<span class='asterisk'>*</span>#{StellarFederation::Application::DOMAIN}".html_safe
+    else
+      "#{self.email}*#{StellarFederation::Application::DOMAIN}"
+    end
   end
 
   def account_id_qr_code
