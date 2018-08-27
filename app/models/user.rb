@@ -12,7 +12,7 @@ class User < ApplicationRecord
   validates :account_id, presence: true, allow_blank: false, length: { is: 56 }
   has_one_attached :avatar
 
-  scope :confirmed -> { where.not(confirmed_at: nil) }
+  scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :who_receive_notifications, -> { where(receive_email_notifications: true) }
   
   after_update_commit :update_cache
