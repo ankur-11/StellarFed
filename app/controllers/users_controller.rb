@@ -3,12 +3,12 @@ class UsersController < ApplicationController
   before_action :set_search_query, only: [:search]
 
   def show
-    @user = User.where(email: params[:id]).first
+    @user = User.confirmed.where(email: params[:id]).first
     render :show, status: @user.blank? ? :not_found : :ok and return
   end
 
   def search
-    @user = User.where("email = ? OR account_id = ?", @search_query, @search_query).first
+    @user = User.confirmed.where("email = ? OR account_id = ?", @search_query, @search_query).first
     if @user.present?
       redirect_to user_path(@user) and return
     end
@@ -19,9 +19,9 @@ class UsersController < ApplicationController
     response.headers['Access-Control-Allow-Origin'] = '*'
     case @search_type
     when 'name'
-      @user = User.where(email: @search_query).first
+      @user = User.confirmed.where(email: @search_query).first
     when 'id'
-      @user = User.where(account_id: @search_query).first
+      @user = User.confirmed.where(account_id: @search_query).first
     else
       render status: :bad_request, json: { detail: "cannot handle '#{@search_type}' type" }.to_json and return
     end
