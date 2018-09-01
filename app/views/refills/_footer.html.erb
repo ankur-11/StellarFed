@@ -9,7 +9,7 @@
       <li><h3>Donate</h3></li>
       <li>
         <% cache donate_account do %>
-          <%= link_to donate_account.stellar_address(html: true), user_path(donate_account) %>
+          <code><%= link_to donate_account.stellar_address, user_path(donate_account) %></code>
         <% end %>
       </li>
     </ul>

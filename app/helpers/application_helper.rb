@@ -12,6 +12,6 @@ module ApplicationHelper
   end
 
   def donate_account
-    User.where(email: StellarFederation::Application::DONATION_ACCOUNT).first
+    User.where(email: StellarFed::Application::DONATION_ACCOUNT).first
   end
 end

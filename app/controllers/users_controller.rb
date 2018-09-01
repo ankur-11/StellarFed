@@ -19,28 +19,23 @@ class UsersController < ApplicationController
     response.headers['Access-Control-Allow-Origin'] = '*'
     case @search_type
     when 'name'
-      @user = User.confirmed.where(email: @search_query).first
+      @user = User.get(@search_query)
     when 'id'
       @user = User.confirmed.where(account_id: @search_query).first
     else
       render status: :bad_request, json: { detail: "cannot handle '#{@search_type}' type" }.to_json and return
     end
 
-    if @user.blank?
-      render status: :not_found, json: { detail: "no record found" }.to_json and return      
+    unless @user.confirmed?
+      render status: :not_found, json: { detail: "no record found" }.to_json and return
     end
 
-    search_response = {
+    resp = {
       stellar_address: @user.stellar_address,
       account_id: @user.account_id,
-    }
+    }.merge(@memo.present? ? { memo: @memo, memo_type: 'text' } : {})
 
-    if @memo.present?
-      search_response[:memo] = @memo
-      search_response[:memo_type] = 'text'
-    end
-
-    render status: :ok, json: search_response.to_json and return
+    render status: :ok, json: resp.to_json and return
   end
 
   private
@@ -66,7 +61,7 @@ class UsersController < ApplicationController
       render status: :bad_request, json: { detail: "missing query" }.to_json and return
     end
     
-    @search_query ||= params[:q].gsub(/\*#{Regexp.quote(StellarFederation::Application::DOMAIN)}$/, '')
+    @search_query ||= params[:q].gsub(/\*#{Regexp.quote(StellarFed::Application::DOMAIN)}$/, '')
   end
 
   def set_search_type

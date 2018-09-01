@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   get '/federation' => 'users#federation_search'
   get '/search' => 'users#search'
   get '/u/:id' => 'users#show', id: /.*/, as: 'user'
+  get '/accounts/:id' => 'accounts#show', id: /.*/, as: 'account'
 end
