@@ -2,12 +2,14 @@ require_relative 'boot'
 
 require 'rails/all'
 require 'redis'
+require 'dotenv/load'
+require 'stellar-sdk'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module StellarFederation
+module StellarFed
   class Application < Rails::Application
     CACHE_CLIENT = Redis.new(url: ENV['REDIS_URL'])
     DOMAIN = 'stellarfed.org'
@@ -20,9 +22,9 @@ module StellarFederation
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.before_initialize do
-      config.domain = StellarFederation::Application::DOMAIN
+      config.domain = StellarFed::Application::DOMAIN
     end
 
-    config.action_mailer.default_url_options = { host: StellarFederation::Application::DOMAIN }
+    config.action_mailer.default_url_options = { host: StellarFed::Application::DOMAIN }
   end
 end

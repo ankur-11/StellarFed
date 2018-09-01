@@ -13,17 +13,29 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
-  scope :who_receive_notifications, -> { where(receive_email_notifications: true) }
   
   after_update_commit :update_cache
   after_destroy :uncache
 
-  def stellar_address(opts = {})
-    if opts[:html]
-      "#{self.email}<span class='asterisk'>*</span>#{StellarFederation::Application::DOMAIN}".html_safe
-    else
-      "#{self.email}*#{StellarFederation::Application::DOMAIN}"
-    end
+  def self.get(email)
+    user = where(email: email).first
+    return user if user.present?
+
+    account = Account.find_or_create(email)
+    return User.new(
+      email: email,
+      account_id: account.public_key,
+      confirmed_at: Time.now)
+  end
+
+  def self.update_cache
+    confirmed.where(receive_email_notifications: true).find_each(&:cache)
+  rescue => e
+    logger.warn e
+  end
+
+  def stellar_address
+    "#{self.email}*#{StellarFed::Application::DOMAIN}"
   end
 
   def account_id_qr_code
@@ -38,13 +50,17 @@ class User < ApplicationRecord
   end
 
   def uncache
-    StellarFederation::Application::CACHE_CLIENT.srem(account_id, email) rescue nil
+    StellarFed::Application::CACHE_CLIENT.srem(account_id, email)
+  rescue => e
+    logger.warn e
   end
 
   def cache
-    if receive_email_notifications
-      StellarFederation::Application::CACHE_CLIENT.sadd(account_id, email) rescue nil
+    if receive_email_notifications && confirmed?
+      StellarFed::Application::CACHE_CLIENT.sadd(account_id, email)
     end
+  rescue => e
+    logger.warn e
   end
 
   private

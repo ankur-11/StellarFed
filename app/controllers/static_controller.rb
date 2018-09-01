@@ -7,6 +7,6 @@ class StaticController < ApplicationController
 
   def stellar
     response.headers['Access-Control-Allow-Origin'] = '*'
-    render plain: "FEDERATION_SERVER = \"https://#{StellarFederation::Application::DOMAIN}/federation\"" and return
+    render plain: "FEDERATION_SERVER = \"https://#{StellarFed::Application::DOMAIN}/federation\"" and return
   end
 end

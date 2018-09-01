@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_30_041002) do
+ActiveRecord::Schema.define(version: 2018_07_04_180835) do
+
+  create_table "accounts", id: false, force: :cascade do |t|
+    t.string "public_key", limit: 56, default: "", null: false
+    t.string "secret_key", limit: 56
+    t.string "email", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 # Could not dump table "active_storage_attachments" because of following StandardError
 #   Unknown type 'uuid' for column 'record_id'

@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "StellarFed <ankur@#{StellarFederation::Application::DOMAIN}>"
+  default from: "StellarFed <ankur@#{StellarFed::Application::DOMAIN}>"
   layout 'mailer'
 end

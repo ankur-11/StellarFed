@@ -1,0 +1,28 @@
+<% content_for :javascripts do %>
+  <%= javascript_include_tag 'accounts' %>
+<% end %>
+<div class="side-image accounts">
+  <div class="images-wrapper"></div>
+  <div class="side-image-content">
+    <div class="container">
+      <p class="flash-error">
+        <strong>ATTENTION:</strong>
+        Please write down your secret key and keep it safe. It will not be displayed again.
+        You will lose access to your lumens if you lose your secret key.
+      </p>
+      <h4>Stellar Account Details</h4>
+      <h1>You have <%= @account.balance rescue 0 %> Stellar Lumens in your Stellar Account</h1>
+      <p>
+        Public Key:<br/>
+        <code><%= @account.public_key %></code>
+        <br/>
+        Secret Key:<br/>
+        <code><%= @account.secret_key %></code>
+      </p>
+      <p>
+        Use the Secret key shown above to access or transfer lumens via the official Stellar.org
+        <a target="_blank" href="https://www.stellar.org/account-viewer/#!/">Account Viewer Wallet</a>
+      </p>
+    </div>
+  </div>
+</div>
