@@ -2,7 +2,6 @@ require_relative 'boot'
 
 require 'rails/all'
 require 'redis'
-require 'dotenv/load'
 require 'stellar-sdk'
 
 # Require the gems listed in Gemfile, including any gems
