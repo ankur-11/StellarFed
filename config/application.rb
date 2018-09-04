@@ -25,5 +25,7 @@ module StellarFed
     end
 
     config.action_mailer.default_url_options = { host: StellarFed::Application::DOMAIN }
+
+    config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
   end
 end
