@@ -12,21 +12,21 @@ class Account < ApplicationRecord
   after_destroy :stop_watching
 
   def start_watching
-    StellarFed::Application::CACHE_CLIENT.hset(cache_key, public_key, email)
+    StellarFed::Application::CACHE_CLIENT.hset(Account.cache_key, public_key, email)
   rescue => e
     logger.warn e
   end
 
   def stop_watching
-    StellarFed::Application::CACHE_CLIENT.hdel(cache_key, public_key)
+    StellarFed::Application::CACHE_CLIENT.hdel(Account.cache_key, public_key)
   rescue => e
     logger.warn e
   end
 
   def self.update_watch
-    watched_accounts = StellarFed::Application::CACHE_CLIENT.hkeys(cache_key)
+    watched_accounts = StellarFed::Application::CACHE_CLIENT.hkeys(Account.cache_key)
     watched_accounts.each do |k|
-      StellarFed::Application::CACHE_CLIENT.hdel(cache_key, k)
+      StellarFed::Application::CACHE_CLIENT.hdel(Account.cache_key, k)
     end
     Account.find_each(&:start_watching)
   rescue => e
@@ -54,7 +54,7 @@ class Account < ApplicationRecord
 
   private
 
-  def cache_key
+  def self.cache_key
     Rails.application.secrets.new_account_cache_key
   end
 end
