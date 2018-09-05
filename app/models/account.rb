@@ -6,6 +6,9 @@ class Account < ApplicationRecord
 
   attr_encrypted :secret_key,
     key: Base64.decode64(Rails.application.secrets.encryption_key),
+    algorithm: 'aes-256-cbc',
+    mode: :single_iv_and_salt,
+    insecure_mode: true,
     salt: Rails.application.secrets.salt
 
   after_create :start_watching
