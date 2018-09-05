@@ -63,7 +63,7 @@ gem 'barby'
 gem 'rqrcode'
 gem 'mini_magick'
 gem 'stellar-sdk'
-gem 'dotenv-rails', require: 'dotenv/load', groups: [:development, :test]
+gem 'attr_encrypted', '~> 3.0.0'
 
 group :production do
   gem 'pg', '~> 0.20'

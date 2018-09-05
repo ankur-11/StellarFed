@@ -10,7 +10,7 @@ Bundler.require(*Rails.groups)
 
 module StellarFed
   class Application < Rails::Application
-    CACHE_CLIENT = Redis.new(url: ENV['REDIS_URL'])
+    CACHE_CLIENT = Redis.new(url: Rails.application.secrets.cache_server_url)
     DOMAIN = 'stellarfed.org'
     DONATION_ACCOUNT = 'ankurpatel@me.com'
 

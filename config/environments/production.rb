@@ -99,8 +99,8 @@ Rails.application.configure do
     address:              'smtp.gmail.com',
     port:                 587,
     domain:               StellarFed::Application::DOMAIN,
-    user_name:            ENV['EMAIL_ADDRESS'],
-    password:             ENV['EMAIL_PASSWORD'],
+    user_name:            Rails.application.secrets.email_address,
+    password:             Rails.application.secrets.email_password,
     authentication:       'plain',
     enable_starttls_auto: true
   }

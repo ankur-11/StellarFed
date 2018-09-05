@@ -45,6 +45,8 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     arel (9.0.0)
+    attr_encrypted (3.0.3)
+      encryptor (~> 3.0.0)
     barby (0.6.5)
     base32 (0.3.2)
     bcrypt (3.1.12)
@@ -81,10 +83,7 @@ GEM
       responders
       warden (~> 1.2.3)
     digest-crc (0.4.1)
-    dotenv (2.5.0)
-    dotenv-rails (2.5.0)
-      dotenv (= 2.5.0)
-      railties (>= 3.2, < 6.0)
+    encryptor (3.0.0)
     erubi (1.7.1)
     excon (0.62.0)
     execjs (2.7.0)
@@ -266,6 +265,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  attr_encrypted (~> 3.0.0)
   barby
   bitters
   bootsnap (>= 1.1.0)
@@ -273,7 +273,6 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   devise (~> 4.4.3)
-  dotenv-rails
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   mini_magick
