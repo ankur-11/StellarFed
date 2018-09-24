@@ -64,6 +64,7 @@ gem 'rqrcode'
 gem 'mini_magick'
 gem 'stellar-sdk'
 gem 'attr_encrypted', '~> 3.0.0'
+gem 'htmlcompressor', '~> 0.4.0'
 
 group :production do
   gem 'pg', '~> 0.20'

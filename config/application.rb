@@ -27,5 +27,14 @@ module StellarFed
     config.action_mailer.default_url_options = { host: StellarFed::Application::DOMAIN }
 
     config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
+
+    compression_options = {
+      enabled: true,
+      remove_spaces_inside_tags: true,
+      remove_multi_spaces: true,
+      remove_comments: true,
+      remove_intertag_spaces: true
+    }
+    config.middleware.use HtmlCompressor::Rack, compression_options
   end
 end
