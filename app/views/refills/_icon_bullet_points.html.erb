@@ -16,7 +16,7 @@
       <h2>Email Notifications</h2>
       <p>
         Receive email notifications when someone sends you payment via the Stellar network to your Stellar Account.
-        Processed <%= num_of_transactions_processed %> payment and account creation transactions on the Stellar Network to date.
+        Processed <%= number_to_human(num_of_transactions_processed, precision: 3, significant: false) %> payment and account creation transactions on the Stellar Network to date.
       </p>
     </div>
   </li>
